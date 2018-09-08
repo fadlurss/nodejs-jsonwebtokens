@@ -1,0 +1,28 @@
+{
+  "name": "nodejs-jsonwebtokens",
+  "version": "1.0.0",
+  "description": "Latihan Node js - Bagian JWT (Json Web Tokens)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadlurss/nodejs-jsonwebtokens.git"
+  },
+  "author": "Fadlurs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fadlurss/nodejs-jsonwebtokens/issues"
+  },
+  "homepage": "https://github.com/fadlurss/nodejs-jsonwebtokens#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.13",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.4"
+  }
+}
