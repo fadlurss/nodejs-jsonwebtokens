@@ -89,12 +89,12 @@ var express             = require('express')
         //decode token
         if(token) {
             //verifies secret and checks exp
-            jwt.verify(token, app.get('superSecret'), function(err, hasil_decoded){
+            jwt.verify(token, app.get('superSecret'), function(err, decoded){
                 if(err){
                     return res.json({success: false, message: "Failed to authenticate token"});
                 }else {
                 // if everything is good, save to request for use in other routes
-                    req.decoded = hasil_decoded;
+                    req.decoded = decoded;
                     next();
                 }
             });
