@@ -1,13 +1,13 @@
-var express             = require('express')
-    app                 = express()
-    bodyParser          = require('body-parser')
-    morgan              = require('morgan')
-    mongoose            = require('mongoose')
+var express             = require('express'),
+    app                 = express(),
+    bodyParser          = require('body-parser'),
+    morgan              = require('morgan'),
+    mongoose            = require('mongoose'),
 
 
-    jwt                 = require('jsonwebtoken')
-    config              = require('./config')
-    User                = require('./app/models/user')
+    jwt                 = require('jsonwebtoken'),
+    config              = require('./config'),
+    User                = require('./app/models/user');
 
 
     //configurations
@@ -19,40 +19,36 @@ var express             = require('express')
     apiRoutes = express.Router();
 
     //ROUTES
-    app.get("/", function(req,res){
-        res.send("Hello");
-    });
+    // app.get("/", function(req,res){
+    //     res.send("Hello");
+    // });
 
-    app.get("/setup", function(req,res){
-        //create a sample user
-        var nick = new User({
-            name : "Nick Jonas",
-            password: "password",
-            admin: true
-        });
+    // app.get("/setup", function(req,res){
+    //     //create a sample user
+    //     var nick = new User({
+    //         name : "Nick Jonas",
+    //         password: "password",
+    //         admin: true
+    //     });
 
-        //save the sample user
-        nick.save(function(err){
-            if(err) throw err;
-            console.log("User saved succesfully");
-            res.json({success: true});
-        });
-    });
-
-    apiRoutes.get("/", function(req,res){ //routes to show a random message
-        res.json({message: "Welcome to the coolest API on earth!"});
-    });
+    //     //save the sample user
+    //     nick.save(function(err){
+    //         if(err) throw err;
+    //         console.log("User saved succesfully");
+    //         res.json({success: true});
+    //     });
+    // });
 
     
-    apiRoutes.post("/aut", function(req,res){
+    apiRoutes.post('/authenticate', function(req,res){
 
         //find the user
         User.findOne({
             name: req.body.name 
-        }, function(err, hasil_user){
-            if(err) throw err; //kondisi pertamßa
+        }, function(err, user){
+            if(err) throw err; //kondisi pertama
 
-            if (!hasil_user){ //kondisi kedua
+            if (!user){ //kondisi kedua
                 res.json({success: false, message: "Authentication failed, user not found"});
             } else if(hasil_user){ //kondisi ketiga
 
@@ -110,17 +106,19 @@ var express             = require('express')
         
     });
 
+    apiRoutes.get("/", function(req,res){ //routes to show a random message
+        res.json({message: "Welcome to the coolest API on earth!"});
+    });
 
-
-    app.use("/api", apiRoutes); // apply the routes to our application with the prefix / api
-    //klw ngejalanin localhost:3000/api keluarnya sama kayak welcome to the coolest api
-
+    //showing our users
     apiRoutes.get("/users",function(req,res){ // route to return all users
         User.find({}, function(err, users){
             res.json({users});
         });
     });
 
+    app.use("/api", apiRoutes); // apply the routes to our application with the prefix / api
+    //klw ngejalanin localhost:3000/api keluarnya sama kayak welcome to the coolest api
 
     app.get("*", function(req,res){
         res.send("404");
