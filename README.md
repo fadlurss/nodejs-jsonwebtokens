@@ -1,5 +1,21 @@
-# nodejs-jsonwebtokens
-Latihan Node js - Bagian JWT (Json Web Tokens)
+# Nodejs Token Autentikasi
+
+Repositori ini menggunakan JSON Web Tokens dan package https://github.com/auth0/node-jsonwebtoken untuk mengimplementasikan token berdasarkan autentikasi sederhana menggunakan Node js API 
+
+<h2>Kebutuhan</h2>
+<ul><li>node dan npm</li></ul>
+
+<h2>Penggunaan</h2>
+<ol type="1">
+<li> Clone repo ini
+<li> Install npm berikut ini : npm install express body-parser morgan mongoose jsonwebtoken --save </li>
+<li> Jalankan server nya : node app.js </li>
+<li> Buat contoh user baru dengan mengunjungi : localhost:3000/setup</li>
+</ol>
+Setelah user ditambahkan, kita akan mulai membuat dan verifikasi tokennya.
+
+<h2>Mendapatkan token</h2>
+Gunakan POST untuk http://localhost:3000/api/authenticate dengan mengklik bagian body terdapat bagian bawah berikut ini x-www-form-urlencoded
 
 Sumber : https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
 
