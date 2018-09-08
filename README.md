@@ -3,7 +3,7 @@
 Repositori ini menggunakan JSON Web Tokens dan package [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)  untuk mengimplementasikan token berdasarkan autentikasi sederhana menggunakan Node js API 
 
 ## Kebutuhan
-<<<<<<< HEAD
+
 - node dan npm
 
 ## Penggunaan
@@ -13,7 +13,7 @@ Repositori ini menggunakan JSON Web Tokens dan package [jsonwebtoken](https://gi
 3. Jalankan server nya : `node app.js`
 4. Buat contoh user baru dengan mengunjungi : `localhost:3000/setup`
 
-=======
+
 - node dan npm
 
 ## Penggunaan
