@@ -13,7 +13,7 @@ var express             = require('express'),
     //configurations
     mongoose.connect(config.url, { useNewUrlParser: true });
     app.set('superSecret', config.secret);
-    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
     app.use(morgan('dev'));
     apiRoutes = express.Router();
@@ -45,24 +45,24 @@ var express             = require('express'),
         //find the user
         User.findOne({
             name: req.body.name 
-        }, function(err, user){
+        }, function(err, hasil_user){
             if(err) throw err; //kondisi pertama
 
-            if (!user){ //kondisi kedua
+            if (!hasil_user){ //kondisi kedua
                 res.json({success: false, message: "Authentication failed, user not found"});
             } else if(hasil_user){ //kondisi ketiga
 
                 //check if password matched
-                if(user.password != req.body.password){
+                if(hasil_user.password != req.body.password){
                     res.json({success: false, message: "Authentication failed, Wrong password"});
                 } else {
                     //if user is found and password matched
                     //create a token with only our given payload
                     var payload = {
-                        admin: user.admin
+                        admin: hasil_user.admin
                     };
                         var token = jwt.sign(payload, app.get('superSecret'), {
-                            expiresInMinutes: 1440 //expires in 24 hours
+                            expiresIn: 86400 //expires in 24 hours
                         });
 
                         //return the information
@@ -79,7 +79,7 @@ var express             = require('express'),
 
     apiRoutes.use(function(req,res,next){
          // check header or url parameters or post parameters for token
-        var token = req.body.token || req.query.token || req.headers['x-access-token'];
+        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
 
         //decode token
@@ -116,6 +116,11 @@ var express             = require('express'),
             res.json({users});
         });
     });
+
+    apiRoutes.get('/check', function(req, res) {
+        res.json(req.decoded);
+    });
+    
 
     app.use("/api", apiRoutes); // apply the routes to our application with the prefix / api
     //klw ngejalanin localhost:3000/api keluarnya sama kayak welcome to the coolest api
